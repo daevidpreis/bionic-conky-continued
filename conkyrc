@@ -1,0 +1,108 @@
+# — Conky settings — #
+background yes
+update_interval 1
+update_interval_on_battery 4
+total_run_times 0
+net_avg_samples 2
+override_utf8_locale yes
+double_buffer yes
+no_buffers yes
+text_buffer_size 2048
+imlib_cache_size 0
+temperature_unit celsius
+if_up_strictness address
+
+
+# — Window specifications — #
+own_window yes
+own_window_type desktop
+own_window_transparent yes
+own_window_hints undecorated,sticky,skip_taskbar,skip_pager
+alignment top_right
+border_inner_margin 0
+border_outer_margin 0
+minimum_size 160 590
+maximum_width 160
+gap_x 0
+gap_y 75
+
+
+# — Graphics settings — #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+
+# — Text settings — #
+use_xft yes
+xftfont hooge 05_53:size=6
+#xftfont Menlo:size=6
+#xftfont Andale Mono:size=6
+#xftfont Monaco:size=6
+xftalpha 0.1
+uppercase no
+use_spacer right
+default_color FFFFFF
+
+
+# — Lua Load — #
+lua_load ~/.conky/bionic-contd/scripts/rings.lua
+lua_draw_hook_pre main_rings
+
+
+
+TEXT
+################################################################################
+# Background
+################################################################################
+${image ~/.conky/bionic-contd/images/bg.png -p 0,0 -s 160x590}
+#
+################################################################################
+# Top Box
+################################################################################
+${voffset  52}${alignc}${offset 38}${time %H:%M}
+${voffset   2}${alignc}${offset 38}${time %d.%m.%Y}
+#
+################################################################################
+# CPU Circle
+################################################################################
+${voffset  11}${alignc}${offset -31}${cpu cpu0}%
+#
+################################################################################
+# Memory Circle
+################################################################################
+${voffset  87}${alignc}${offset 23}${memperc}%
+#
+################################################################################
+# Middle Box
+################################################################################
+${voffset  34}${goto 103}${if_up wlp2s0}WLAN$else${if_up enp0s20f0u3u4}ETH${endif}${endif}
+${voffset   1}${goto 103}D: ${if_up wlp2s0}${downspeed wlp2s0}$else${downspeed enp0s20f0u3u4}${endif}
+${voffset   1}${goto 103}U: ${if_up wlp2s0}${upspeed wlp2s0}$else${upspeed enp0s20f0u3u4}${endif}
+${voffset   7}${goto 103}HDD: ${fs_used_perc}%
+#
+################################################################################
+# Network Circle
+################################################################################
+${voffset   3}${alignc}${offset -19}${if_up wlp2s0}${wireless_link_qual_perc wlp2s0}$else${image ~/.conky/bionic-contd/images/wifi-disconnected.png -p 45,262 -s 22x22}${endif}
+#
+################################################################################
+# Temperature Circle
+################################################################################
+${voffset  66}${alignc}${offset 32}${hwmon 1 temp 1}°
+#
+################################################################################
+# Battery Circle
+################################################################################
+${image ~/.conky/bionic-contd/images/battery.png -p 58,416 -s 22x22}
+#
+################################################################################
+# Lower Box
+################################################################################
+${voffset 105}${alignc}${if_match "${execi 10 pgrep exaile}" != ""}${offset 12}${scroll 18 ${execi 10 exaile --get-title 2> /dev/null && exaile --get-artist 2> /dev/null}}$else${offset 12}${uptime}$endif
+#
+################################################################################
+# Volume Circle
+################################################################################
+${image ~/.conky/bionic-contd/images/volume.png -p 85,502 -s 20x20}
