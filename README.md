@@ -3,7 +3,7 @@
 ## Installation
 
 + git clone or extract the repository to ```~/.conky/bionic-contd```<br>
-*(```mkdir -p ~/.conky/bionic-contd && git clone https://github.com/daevidpreis/bionic-contd.git ~/.conky/bionic-contd```)*
+*(```mkdir -p ~/.conky/bionic-contd && git clone https://github.com/dubitabam/bionic-contd.git ~/.conky/bionic-contd```)*
 + install the fonts
 + adjust paths in [conkyrc](conkyrc) if necessary
 + change wallpaper
